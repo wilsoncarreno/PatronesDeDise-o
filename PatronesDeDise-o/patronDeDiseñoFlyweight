@@ -1,0 +1,45 @@
+# Flyweight: Almacena las propiedades compartidas del arma
+class TipoArma:
+    def __init__(self, nombre):
+        self.nombre = nombre
+    
+    def usar(self, posicion):
+        return f"Arma {self.nombre} usada en posición {posicion}"
+
+# Fábrica Flyweight: Gestiona las armas compartidas
+class FabricaArmas:
+    def __init__(self):
+        self.armas = {}
+    
+    def obtener_arma(self, nombre):
+        if nombre not in self.armas:
+            self.armas[nombre] = TipoArma(nombre)
+        return self.armas[nombre]
+
+# Contexto: Personaje que usa un arma
+class Personaje:
+    def __init__(self, posicion, arma):
+        self.posicion = posicion
+        self.arma = arma
+    
+    def disparar(self):
+        return self.arma.usar(self.posicion)
+
+# Uso del patrón Flyweight
+def main():
+    fabrica = FabricaArmas()
+    
+    # Obtenemos armas compartidas
+    espada = fabrica.obtener_arma("Espada")
+    
+    # Creamos personajes con la misma arma
+    personaje1 = Personaje("A1", espada)
+    personaje2 = Personaje("B2", espada)
+    
+    # Disparamos
+    print(personaje1.disparar())  # Arma Espada usada en posición A1
+    print(personaje2.disparar())  # Arma Espada usada en posición B2
+    print(f"Armas creadas: {len(fabrica.armas)}")  # Solo 1 arma creada
+
+if __name__ == "__main__":
+    main()

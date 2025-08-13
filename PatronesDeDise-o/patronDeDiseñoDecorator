@@ -1,0 +1,48 @@
+# Componente base
+class Cafe:
+    def costo(self):
+        return 5
+    
+    def descripcion(self):
+        return "Café simple"
+
+
+# Decorador base
+class DecoradorCafe:
+    def __init__(self, cafe):
+        self._cafe = cafe
+
+    def costo(self):
+        return self._cafe.costo()
+
+    def descripcion(self):
+        return self._cafe.descripcion()
+
+
+# Decorador concreto: Leche
+class ConLeche(DecoradorCafe):
+    def costo(self):
+        return self._cafe.costo() + 2
+    
+    def descripcion(self):
+        return self._cafe.descripcion() + ", con leche"
+
+
+# Decorador concreto: Chocolate
+class ConChocolate(DecoradorCafe):
+    def costo(self):
+        return self._cafe.costo() + 3
+    
+    def descripcion(self):
+        return self._cafe.descripcion() + ", con chocolate"
+
+
+# Uso
+cafe_simple = Cafe()
+print(cafe_simple.descripcion(), "-", cafe_simple.costo(), "USD")
+
+cafe_con_leche = ConLeche(cafe_simple)
+print(cafe_con_leche.descripcion(), "-", cafe_con_leche.costo(), "USD")
+
+cafe_con_leche_y_chocolate = ConChocolate(cafe_con_leche)
+print(cafe_con_leche_y_chocolate.descripcion(), "-", cafe_con_leche_y_chocolate.costo(), "USD")

@@ -1,0 +1,40 @@
+# Subsistemas complejos
+class TV:
+    def encender(self):
+        return "TV encendida"
+    def apagar(self):
+        return "TV apagada"
+
+class ReproductorDVD:
+    def reproducir(self):
+        return "DVD reproduciendo"
+    def detener(self):
+        return "DVD detenido"
+
+class Altavoces:
+    def encender(self):
+        return "Altavoces encendidos"
+    def apagar(self):
+        return "Altavoces apagados"
+
+# Facade: Simplifica el uso del cine en casa
+class CineEnCasaFacade:
+    def __init__(self):
+        self.tv = TV()
+        self.dvd = ReproductorDVD()
+        self.altavoces = Altavoces()
+    
+    def ver_pelicula(self):
+        return f"{self.tv.encender()}, {self.altavoces.encender()}, {self.dvd.reproducir()}"
+    
+    def apagar_cine(self):
+        return f"{self.dvd.detener()}, {self.altavoces.apagar()}, {self.tv.apagar()}"
+
+# Uso del patrón Facade
+def main():
+    cine = CineEnCasaFacade()
+    print(cine.ver_pelicula())  # Enciende todo y reproduce
+    print(cine.apagar_cine())   # Apaga todo
+
+if __name__ == "__main__":
+    main()

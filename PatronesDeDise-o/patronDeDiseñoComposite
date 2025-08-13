@@ -1,0 +1,43 @@
+# Componente: Interfaz para héroes y equipos
+class Superheroe:
+    def accion(self):
+        pass
+
+# Hoja: Un héroe individual
+class HeroeIndividual(Superheroe):
+    def __init__(self, nombre):
+        self.nombre = nombre
+    
+    def accion(self):
+        return f"{self.nombre} está luchando"
+
+# Composite: Un equipo de héroes
+class EquipoHeroes(Superheroe):
+    def __init__(self, nombre):
+        self.nombre = nombre
+        self.miembros = []
+    
+    def agregar(self, heroe):
+        self.miembros.append(heroe)
+    
+    def accion(self):
+        resultados = [heroe.accion() for heroe in self.miembros]
+        return f"Equipo {self.nombre}: {', '.join(resultados)}"
+
+# Uso del patrón Composite
+def main():
+    # Héroes individuales
+    ironman = HeroeIndividual("Iron Man")
+    thor = HeroeIndividual("Thor")
+    
+    # Equipo de héroes
+    avengers = EquipoHeroes("Avengers")
+    avengers.agregar(ironman)
+    avengers.agregar(thor)
+    
+    # Tratar héroes y equipos de forma uniforme
+    print(ironman.accion())  # Iron Man está luchando
+    print(avengers.accion())  # Equipo Avengers: Iron Man está luchando, Thor está luchando
+
+if __name__ == "__main__":
+    main()

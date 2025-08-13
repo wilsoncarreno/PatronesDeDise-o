@@ -1,0 +1,44 @@
+# Implementación: Define cómo actúa el dispositivo
+class Dispositivo:
+    def accion(self, estado):
+        pass
+
+# Implementaciones concretas
+class TV(Dispositivo):
+    def accion(self, estado):
+        return f"TV: {estado}"
+
+class Radio(Dispositivo):
+    def accion(self, estado):
+        return f"Radio: {estado}"
+
+# Abstracción: Define el control remoto
+class ControlRemoto:
+    def __init__(self, dispositivo):
+        self.dispositivo = dispositivo
+    
+    def usar(self, estado):
+        pass
+
+# Abstracciones refinadas
+class BotonEncender(ControlRemoto):
+    def usar(self, estado="Encendida"):
+        return self.dispositivo.accion(estado)
+
+class BotonApagar(ControlRemoto):
+    def usar(self, estado="Apagada"):
+        return self.dispositivo.accion(estado)
+
+# Uso del patrón Bridge
+def main():
+    tv = TV()
+    radio = Radio()
+    
+    encender_tv = BotonEncender(tv)
+    apagar_radio = BotonApagar(radio)
+    
+    print(encender_tv.usar())  # TV: Encendida
+    print(apagar_radio.usar())  # Radio: Apagada
+
+if __name__ == "__main__":
+    main()

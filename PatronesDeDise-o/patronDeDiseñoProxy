@@ -1,0 +1,36 @@
+# Interfaz común para la bóveda y el proxy
+class Boveda:
+    def acceder(self):
+        pass
+
+# Objeto real: La bóveda secreta
+class BovedaSecreta(Boveda):
+    def acceder(self):
+        return "Acceso a la bóveda secreta concedido"
+
+# Proxy: Controla el acceso a la bóveda
+class GuardiaProxy(Boveda):
+    def __init__(self, boveda_real, contrasena):
+        self.boveda_real = boveda_real
+        self.contrasena = contrasena
+    
+    def acceder(self):
+        if self.contrasena == "secreto123":
+            return self.boveda_real.acceder()
+        return "Acceso denegado: contraseña incorrecta"
+
+# Uso del patrón Proxy
+def main():
+    boveda = BovedaSecreta()
+    
+    # Proxy con contraseña correcta
+    guardia_correcto = GuardiaProxy(boveda, "secreto123")
+    print(guardia_correcto.acceder())  # Acceso concedido
+    
+    # Proxy con contraseña incorrecta
+    guardia_incorrecto = GuardiaProxy(boveda, "mal123")
+    print(guardia_incorrecto.acceder())  # Acceso denegado
+
+if __name__ == "__main__":
+    main()
+    

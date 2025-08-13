@@ -1,0 +1,36 @@
+# Interfaz que el restaurante espera (órdenes en inglés)
+class Restaurante:
+    def ordenar_en_ingles(self):
+        pass
+
+# Cliente que solo habla español
+class ClienteEspanol:
+    def ordenar_en_espanol(self):
+        return "Quiero una pizza"
+
+# Adaptador que traduce de español a inglés
+class AdaptadorEspanolAIngles(Restaurante):
+    def __init__(self, cliente_espanol):
+        self.cliente_espanol = cliente_espanol
+    
+    def ordenar_en_ingles(self):
+        # Traduce la orden en español a inglés
+        return f"Traductor: {self.cliente_espanol.ordenar_en_espanol()} (en inglés: I want a pizza)"
+
+# Restaurante que procesa órdenes en inglés
+def procesar_orden(restaurante):
+    print(restaurante.ordenar_en_ingles())
+
+# Uso del adaptador
+def main():
+    # Creamos al cliente que solo habla español
+    cliente = ClienteEspanol()
+    
+    # Usamos el adaptador para que el restaurante entienda la orden
+    adaptador = AdaptadorEspanolAIngles(cliente)
+    
+    # El restaurante procesa la orden
+    procesar_orden(adaptador)
+
+if __name__ == "__main__":
+    main()
